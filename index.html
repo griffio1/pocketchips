@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d3b2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>PocketChips</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23d7263d'/%3E%3Ccircle cx='32' cy='32' r='30' fill='none' stroke='%23fff' stroke-width='7' stroke-dasharray='11 12.6'/%3E%3Ccircle cx='32' cy='32' r='17' fill='%23fff'/%3E%3Ccircle cx='32' cy='32' r='12' fill='%23d7263d'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HOME -->
+  <main id="home" class="screen">
+    <div class="hero">
+      <div class="stacks" aria-hidden="true">
+        <span class="pile p1"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="pile p2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="pile p3"><i></i><i></i><i></i></span>
+      </div>
+      <h1>PocketChips</h1>
+      <p class="lede">Real cards on the table, chips on everyone’s phone. Start a table, share the link, play.</p>
+    </div>
+
+    <p id="demo" class="demo" hidden>Demo mode: this only syncs between tabs on this device. Add your Firebase config to sync phones (see README).</p>
+
+    <form id="joinForm" class="card" autocomplete="off">
+      <h2>Join a table</h2>
+      <label>Table code<input id="joinCode" name="code" maxlength="4" placeholder="ABCD" autocapitalize="characters" required></label>
+      <label>Your name<input id="joinName" name="name" maxlength="16" placeholder="Parag" required></label>
+      <button class="btn primary" type="submit">Join</button>
+    </form>
+
+    <form id="createForm" class="card" autocomplete="off">
+      <h2>Start a new table</h2>
+      <label>Your name<input id="createName" name="name" maxlength="16" placeholder="Parag" required></label>
+      <div class="row3">
+        <label>Starting chips<input name="stack" type="number" inputmode="numeric" min="1" value="1000" required></label>
+        <label>Small blind<input name="sb" type="number" inputmode="numeric" min="0" value="5" required></label>
+        <label>Big blind<input name="bb" type="number" inputmode="numeric" min="1" value="10" required></label>
+      </div>
+      <button class="btn gold" type="submit">Create table</button>
+    </form>
+  </main>
+
+  <!-- TABLE -->
+  <main id="tableScreen" class="screen" hidden>
+    <header class="bar">
+      <button class="code" data-act="share" aria-label="Share table link">
+        <span>Table</span><b id="codeText">----</b><small>Share</small>
+      </button>
+      <div class="bar-r">
+        <button class="ghost" data-act="undo" id="undoBtn">Undo</button>
+        <button class="ghost" data-act="menu" aria-label="Menu">Menu</button>
+      </div>
+    </header>
+
+    <section class="felt">
+      <div class="board" id="board" aria-label="Community cards to deal"></div>
+      <div class="pot"><span>Pot</span><b id="potAmt">0</b></div>
+      <p class="street" id="streetText"></p>
+    </section>
+
+    <ul class="seats" id="seats"></ul>
+
+    <section class="me" id="me" aria-live="polite"></section>
+
+    <details class="log">
+      <summary>Hand log</summary>
+      <ol id="log"></ol>
+    </details>
+  </main>
+
+  <dialog id="menu">
+    <form method="dialog" class="sheet" id="menuBody"></form>
+  </dialog>
+
+  <div id="toast" role="status"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

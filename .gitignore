@@ -1,0 +1,6 @@
+# Your real Firebase config stays on your computer only
+firebase-config.js
+dist/
+node_modules/
+.DS_Store
+.vercel
